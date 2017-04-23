@@ -13,6 +13,7 @@ import { WeatherService } from '../../services/weather.service';
 export class WeatherPage {
   private city: string;
   private state: string;
+  private weather: Object;
 
 
   static get parameters(){
@@ -24,13 +25,15 @@ export class WeatherPage {
     this.weatherService = weatherService;
     this.city = 'Boston';
     this.state = 'MA';
+    this.weather;
   }
 
   ngOnInit(){
     this.weatherService.getWeather(this.city,this.state)
       .subscribe(weather => {
-        console.log(weather);
-      })
+        this.weather = weather.current_observation;
+        console.log(this.weather);
+      });
   }
 
 }
