@@ -24,13 +24,15 @@ export class WeatherPage {
 
   constructor(public weatherService: WeatherService) {
     this.weatherService = weatherService;
-    this.zmw = '00000.147.12838';
+    this.zmw;
     this.weather;
     this.searchStr;
     this.results;
   }
 
   ngOnInit(){
+    this.getDefaultCity();
+
     this.weatherService.getWeather(this.zmw)
       .subscribe(weather => {
         this.weather = weather.current_observation;
@@ -50,6 +52,15 @@ export class WeatherPage {
       .subscribe(weather => {
         this.weather = weather.current_observation;
       });
+  }
+
+  getDefaultCity() {
+    if (localStorage.city !== undefined) {
+        this.zmw = JSON.parse(localStorage.city).zmw;
+    } else {
+      this.zmw = '00000.147.12838';
+    }
+
   }
 
 }
