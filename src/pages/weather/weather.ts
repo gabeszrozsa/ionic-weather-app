@@ -14,6 +14,8 @@ export class WeatherPage {
   private city: string;
   private state: string;
   private weather: Object;
+  private results: Object;
+  private searchStr: string;
 
 
   static get parameters(){
@@ -26,13 +28,21 @@ export class WeatherPage {
     this.city = 'Boston';
     this.state = 'MA';
     this.weather;
+    this.searchStr;
+    this.results;
   }
 
   ngOnInit(){
     this.weatherService.getWeather(this.city,this.state)
       .subscribe(weather => {
         this.weather = weather.current_observation;
-        console.log(this.weather);
+      });
+  }
+
+  getQuery(){
+    this.weatherService.searchCities(this.searchStr)
+      .subscribe(res => {
+        this.results = res.RESULTS;
       });
   }
 

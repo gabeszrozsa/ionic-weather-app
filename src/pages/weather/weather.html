@@ -8,6 +8,24 @@
 
 <ion-content padding class="weather">
   <ion-grid *ngIf="weather">
+
+    <ion-row>
+      <ion-col width-100>
+        <ion-list>
+          <ion-item>
+            <ion-label fixed>Enter City</ion-label>
+            <ion-input (keyup)="getQuery()" [(ngModel)]="searchStr" type="text" value=""></ion-input>
+          </ion-item>
+        </ion-list>
+
+        <ion-list>
+          <ion-item *ngFor="let result of results">
+            {{result.name}}
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+
     <ion-row>
       <ion-col width-50 offset-25>
         <h2 class="location">{{weather.display_location.full}}</h2>
@@ -18,7 +36,7 @@
         <h1 class="temp">{{weather.temp_c}} °C</h1>
       </ion-col>
     </ion-row>
-    
+
     <ion-row>
       <ion-col width-100>
         <ion-list>
@@ -32,7 +50,7 @@
             <strong> Dewpoint: </strong> {{weather.dewpoint_string}}
           </ion-item>
           <ion-item>
-            <strong> Visibility: </strong> {{weather.visibility}}
+            <strong> Visibility: </strong> {{weather.visibility_mi}}
           </ion-item>
           <ion-item>
             <strong> Wind: </strong> {{weather.wind_kph}} Km/h
